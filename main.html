@@ -3,34 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <title>Arbre Généalogique</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f3f3f3;
-      padding: 20px;
-    }
-    #tree {
-      margin-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .person {
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    #formContainer {
-      margin-top: 15px;
-      display: none;
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      width: 300px;
-    }
-  </style>
+  <style rel="stylesheet" href="style.css"</style>
+<script rel="script" href="script.js"></script>
 </head>
 <body>
   <h1>🌳 Mon Arbre Généalogique</h1>
@@ -55,55 +29,5 @@
   </div>
 
   <div id="tree"></div>
-
-  <script>
-    const tree = [];
-    const treeDiv = document.getElementById("tree");
-    const form = document.getElementById("formContainer");
-    const parent1Select = document.getElementById("parent1");
-    const parent2Select = document.getElementById("parent2");
-
-    document.getElementById("openForm").addEventListener("click", () => {
-      form.style.display = form.style.display === "none" ? "block" : "none";
-      updateParentOptions();
-    });
-
-    document.getElementById("addMember").addEventListener("click", () => {
-      const name = document.getElementById("name").value.trim();
-      const parent1 = parent1Select.value || null;
-      const parent2 = parent2Select.value || null;
-
-      if (!name) return alert("Entre un nom mec 😭");
-
-      tree.push({ name, parent1, parent2 });
-      afficherArbre();
-      document.getElementById("name").value = "";
-      parent1Select.value = "";
-      parent2Select.value = "";
-    });
-
-    function updateParentOptions() {
-      [parent1Select, parent2Select].forEach(select => {
-        select.innerHTML = '<option value="">-- Aucun --</option>';
-        tree.forEach(p => {
-          const option = document.createElement("option");
-          option.value = p.name;
-          option.textContent = p.name;
-          select.appendChild(option);
-        });
-      });
-    }
-
-    function afficherArbre() {
-      treeDiv.innerHTML = "";
-      tree.forEach(p => {
-        const div = document.createElement("div");
-        div.className = "person";
-        div.innerHTML = `<strong>${p.name}</strong><br>
-          ${p.parent1 || p.parent2 ? "👪 Parents : " + [p.parent1, p.parent2].filter(Boolean).join(" & ") : ""}`;
-        treeDiv.appendChild(div);
-      });
-    }
-  </script>
 </body>
 </html>
